@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">thirdStage</string>
+    <string name="username_placeholder">Please enter your name</string>
+    <string name="password_placeholder">Please enter your password</string>
+    <string name="login">Login</string>
+    <string name="register">Register</string>
+    <string name="hint">Password must be at least 6 characters</string>
+    <string name="change">You can choose to change the language below</string>
+</resources>

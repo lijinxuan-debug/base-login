@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">thirdStage</string>
+    <string name="username_placeholder">请输入您的名字</string>
+    <string name="password_placeholder">请输入您的密码</string>
+    <string name="login">登录</string>
+    <string name="register">注册</string>
+    <string name="hint">密码不得少于6位</string>
+    <string name="change">以下可以选择更改语言</string>
+    <string name="ch" translatable="false">中文</string>
+    <string name="ja" translatable="false">日本語</string>
+    <string name="en" translatable="false">English</string>
+</resources>
