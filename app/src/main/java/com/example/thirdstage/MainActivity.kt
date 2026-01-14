@@ -33,21 +33,21 @@ class MainActivity : AppCompatActivity() {
         binding.btnJa.setOnClickListener { changeLanguage("ja") }
 
         // 目前规定长度为12
-        binding.inPassword.filters = arrayOf(InputFilter.LengthFilter(12))
+        binding.inPass.filters = arrayOf(InputFilter.LengthFilter(12))
 
-        binding.inPassword.addTextChangedListener(object : TextWatcher{
+        binding.inPass.addTextChangedListener(object : TextWatcher{
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
             }
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                 if ((s?.length ?: 0) < 6) {
-                    binding.inPassword.error = getString(R.string.hint)
+                    binding.tlPass.error = getString(R.string.hint)
                 }
             }
 
             override fun afterTextChanged(s: Editable?) {
                 if ((s?.length ?: 0) >= 6) {
-                    binding.inPassword.error = null
+                    binding.tlPass.error = null
                 }
             }
 
@@ -55,14 +55,14 @@ class MainActivity : AppCompatActivity() {
 
         binding.inUser.setOnEditorActionListener { v, actionId, event ->
             if (actionId == EditorInfo.IME_ACTION_NEXT) {
-                binding.inPassword.requestFocus()
+                binding.inPass.requestFocus()
                 true
             } else {
                 false // 失败的话就按照系统默认处理
             }
         }
 
-        binding.inPassword.setOnEditorActionListener { v, actionId, event ->
+        binding.inPass.setOnEditorActionListener { v, actionId, event ->
             if (actionId == EditorInfo.IME_ACTION_DONE) {
                 TODO("登录处理")
             } else {
@@ -74,10 +74,10 @@ class MainActivity : AppCompatActivity() {
             if (isFastClick()) {
                 return@setOnClickListener
             }
-            val textUser = binding.inPassword.text.toString()
+            val textUser = binding.inPass.text.toString()
             if (textUser.length < 6) {
-                binding.inPassword.error = getString(R.string.hint)
-                binding.inPassword.requestFocus()
+                binding.tlPass.error = getString(R.string.hint)
+                binding.inPass.requestFocus()
             }
         }
     }
