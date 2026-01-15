@@ -1,12 +1,24 @@
 <resources>
     <string name="app_name">thirdStage</string>
-    <string name="username_placeholder">请输入您的名字</string>
+    <string name="login_welcome_title">您好！</string>
+    <string name="login_welcome_subtitle">欢迎使用学生管理系统</string>
+    <string name="username_placeholder">请输入您的账号</string>
     <string name="password_placeholder">请输入您的密码</string>
+    <string name="password2_placeholder">请再次输入密码</string>
+    <string name="username_is_empty">账号不可为空</string>
+    <string name="password_is_empty">密码不可为空</string>
+    <string name="datepicker_is_empty">出生日期不可为空</string>
     <string name="login">登录</string>
     <string name="register">注册</string>
     <string name="hint">密码不得少于6位</string>
+    <string name="hint_pass2">两次密码不一致</string>
     <string name="change">以下可以选择更改语言</string>
     <string name="ch" translatable="false">中文</string>
     <string name="ja" translatable="false">日本語</string>
     <string name="en" translatable="false">English</string>
+    <string name="gender">性别：</string>
+    <string name="gender_male">男</string>
+    <string name="gender_female">女</string>
+    <string name="data_picker">请选择您的出生日期</string>
+    <string name="login_back">返回登录</string>
 </resources>

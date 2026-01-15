@@ -1,5 +1,6 @@
 package com.example.thirdstage
 
+import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
 import android.text.InputFilter
@@ -8,17 +9,17 @@ import android.view.inputmethod.EditorInfo
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.os.LocaleListCompat
-import com.example.thirdstage.databinding.ActivityMainBinding
+import com.example.thirdstage.databinding.ActivityLoginBinding
 
-class MainActivity : AppCompatActivity() {
+class LoginActivity : AppCompatActivity() {
 
-    private lateinit var binding: ActivityMainBinding
+    private lateinit var binding: ActivityLoginBinding
 
     private var lastClickTime = 0L
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityMainBinding.inflate(layoutInflater)
+        binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
         checkInputPassword()
     }
@@ -74,11 +75,11 @@ class MainActivity : AppCompatActivity() {
             if (isFastClick()) {
                 return@setOnClickListener
             }
-            val textUser = binding.inPass.text.toString()
-            if (textUser.length < 6) {
-                binding.tlPass.error = getString(R.string.hint)
-                binding.inPass.requestFocus()
-            }
+        }
+
+        binding.btnRegister.setOnClickListener { view ->
+            val intent = Intent(this, RegisterActivity::class.java)
+            startActivity(intent)
         }
     }
 
