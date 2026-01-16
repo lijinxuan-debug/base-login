@@ -9,6 +9,7 @@ import android.view.inputmethod.EditorInfo
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.os.LocaleListCompat
+import androidx.core.widget.doOnTextChanged
 import com.example.thirdstage.databinding.ActivityLoginBinding
 
 class LoginActivity : AppCompatActivity() {
@@ -36,23 +37,15 @@ class LoginActivity : AppCompatActivity() {
         // 目前规定长度为12
         binding.inPass.filters = arrayOf(InputFilter.LengthFilter(12))
 
-        binding.inPass.addTextChangedListener(object : TextWatcher{
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+        binding.inPass.doOnTextChanged { text,_,_,_ ->
+            val len = text?.length ?: 0
+            // 校验密码是否为空
+            if (len == 0) {
+                binding.tlPass.error = getString(R.string.password_is_empty)
+            } else {
+                binding.tlPass.error = null
             }
-
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                if ((s?.length ?: 0) < 6) {
-                    binding.tlPass.error = getString(R.string.hint)
-                }
-            }
-
-            override fun afterTextChanged(s: Editable?) {
-                if ((s?.length ?: 0) >= 6) {
-                    binding.tlPass.error = null
-                }
-            }
-
-        })
+        }
 
         binding.inUser.setOnEditorActionListener { v, actionId, event ->
             if (actionId == EditorInfo.IME_ACTION_NEXT) {

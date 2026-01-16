@@ -1,10 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">thirdStage</string>
-    <string name="username_placeholder">名前を入力してください</string>
+    <string name="login_welcome_title">こんにちは！</string>
+    <string name="login_welcome_subtitle">学生管理システムへようこそ</string>
+    <string name="username_placeholder">アカウントを入力してください</string>
     <string name="password_placeholder">パスワードを入力してください</string>
+    <string name="password2_placeholder">パスワードを再入力してください</string>
+    <string name="username_is_empty">アカウントを入力してください</string>
+    <string name="password_is_empty">パスワードを入力してください</string>
+    <string name="datepicker_is_empty">生年月日を選択してください</string>
     <string name="login">ログイン</string>
-    <string name="register">登録</string>
-    <string name="hint">パスワードは6文字以上である必要があります</string>
+    <string name="register">新規登録</string>
+    <string name="hint">パスワードは6文字以上で入力してください</string>
+    <string name="hint_pass2">パスワードが一致しません</string>
     <string name="change">以下から言語を変更できます</string>
+    <string name="ch" translatable="false">中文</string>
+    <string name="ja" translatable="false">日本語</string>
+    <string name="en" translatable="false">English</string>
+    <string name="gender">性別：</string>
+    <string name="gender_male">男性</string>
+    <string name="gender_female">女性</string>
+    <string name="data_picker">生年月日を選択してください</string>
+    <string name="login_back">ログインに戻る</string>
 </resources>

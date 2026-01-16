@@ -1,10 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">thirdStage</string>
-    <string name="username_placeholder">Please enter your name</string>
+    <string name="login_welcome_title">Hello!</string>
+    <string name="login_welcome_subtitle">Welcome to Student Management System</string>
+    <string name="username_placeholder">Please enter your account</string>
     <string name="password_placeholder">Please enter your password</string>
+    <string name="password2_placeholder">Please re-enter your password</string>
+    <string name="username_is_empty">Account cannot be empty</string>
+    <string name="password_is_empty">Password cannot be empty</string>
+    <string name="datepicker_is_empty">Date of birth cannot be empty</string>
     <string name="login">Login</string>
     <string name="register">Register</string>
     <string name="hint">Password must be at least 6 characters</string>
+    <string name="hint_pass2">Passwords do not match</string>
     <string name="change">You can choose to change the language below</string>
+    <string name="ch" translatable="false">中文</string>
+    <string name="ja" translatable="false">日本語</string>
+    <string name="en" translatable="false">English</string>
+    <string name="gender">Gender:</string>
+    <string name="gender_male">Male</string>
+    <string name="gender_female">Female</string>
+    <string name="data_picker">Please select your date of birth</string>
+    <string name="login_back">Back to Login</string>
 </resources>
