@@ -1,13 +1,18 @@
 package com.example.thirdstage
 
 import android.app.DatePickerDialog
+import android.content.Context
 import android.os.Bundle
 import android.text.InputFilter
+import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.widget.doOnTextChanged
 import com.example.thirdstage.databinding.ActivityRegisterBinding
+import org.json.JSONArray
+import org.json.JSONObject
 import java.util.Calendar
+import androidx.core.content.edit
 
 class RegisterActivity : AppCompatActivity() {
     private lateinit var binding: ActivityRegisterBinding
@@ -36,23 +41,26 @@ class RegisterActivity : AppCompatActivity() {
         // 进行注册功能
         binding.btnRegister.setOnClickListener {
             var num = 0
+            val user = binding.inUser.text.toString()
+            val pass1 = binding.inPass.text.toString()
+            val pass2 = binding.inPass2.text.toString()
             // 检查账号是否为空
-            if (binding.inUser.text.toString().isEmpty()) {
+            if (user.isEmpty()) {
                 binding.tlUser.error = getString(R.string.username_is_empty)
                 num++
             }
             // 检查第一个密码框是否为空
-            if (binding.inPass.text.toString().isEmpty()) {
+            if (pass1.isEmpty()) {
                 binding.tlPass.error = getString(R.string.password_is_empty)
                 num++
             }
             // 检查第二个密码框是否为空
-            if (binding.inPass2.text.toString().isEmpty()) {
+            if (pass2.isEmpty()) {
                 binding.tlPass2.error = getString(R.string.password_is_empty)
                 num++
             }
             // 密码是否一致或者格式是否正确
-            if (binding.inPass.text.toString() != binding.inPass.text.toString()) {
+            if (pass1 != pass2) {
                 binding.tlPass.error = getString(R.string.hint_pass2)
                 binding.tlPass2.error = getString(R.string.hint_pass2)
                 num++
@@ -66,11 +74,58 @@ class RegisterActivity : AppCompatActivity() {
                 return@setOnClickListener
             }
 
-            // TODO 校验通过将进行注册用户
+            // 校验通过将进行注册用户
+            val register = registerUser(this, user, pass1, pass2, binding.etDate.text.toString())
 
+            if (register) {
+                // TODO 注册成功直接跳转到主页面
+            }
         }
     }
 
+    private fun registerUser(context: Context, username: String, pass1: String, pass2: String, date: String) : Boolean {
+        val gender = when (binding.gender.checkedRadioButtonId) {
+            R.id.man -> "男"
+            R.id.female -> "女"
+            else -> "男" // when语句必须要有默认值
+        }
+
+        // 获取指定的共享偏好文件
+        val preferences = context.getSharedPreferences("teacher", MODE_PRIVATE)
+        // 获取文件内部老师
+        val oldJsonString = preferences.getString("all_teachers","[]") ?: "[]"
+        // 转换成json数组
+        val jsonArray = JSONArray(oldJsonString)
+
+        // 从索引0开始遍历，不会越界
+        for (i in 0 until jsonArray.length()) {
+            val existUser = jsonArray.getJSONObject(i)
+            if (existUser.getString("username") == username) {
+                Toast.makeText(context,"该用户已存在",Toast.LENGTH_SHORT).show()
+                return false
+            }
+        }
+
+        val user = JSONObject().apply() {
+            put("username", username)
+            put("password", pass2)
+            put("gender", gender)
+            put("birthday", date)
+        }
+
+        jsonArray.put(user)
+
+        // 将增加的新老师放到本地缓存
+        preferences.edit { putString("all_teachers", jsonArray.toString()) }
+
+        LoginActivity().addLoginState(preferences,username)
+        return true
+
+    }
+
+    /**
+     * 注册检验
+     */
     private fun validateRegister() {
         val u1 = binding.inUser.text.toString()
         val p1 = binding.inPass.text.toString()
@@ -105,7 +160,9 @@ class RegisterActivity : AppCompatActivity() {
 
     }
 
-    // 使用原生 DatePickerDialog，不依赖任何第三方库
+    /**
+     * 使用原生 DatePickerDialog，不依赖任何第三方库
+      */
     private fun initDatePicker() {
         binding.etDate.setOnClickListener {
             val str = binding.etDate.text.toString()

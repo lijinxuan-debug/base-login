@@ -1,16 +1,18 @@
 package com.example.thirdstage
 
 import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Bundle
-import android.text.Editable
 import android.text.InputFilter
-import android.text.TextWatcher
 import android.view.inputmethod.EditorInfo
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
+import androidx.core.content.edit
 import androidx.core.os.LocaleListCompat
 import androidx.core.widget.doOnTextChanged
 import com.example.thirdstage.databinding.ActivityLoginBinding
+import org.json.JSONArray
 
 class LoginActivity : AppCompatActivity() {
 
@@ -37,14 +39,9 @@ class LoginActivity : AppCompatActivity() {
         // 目前规定长度为12
         binding.inPass.filters = arrayOf(InputFilter.LengthFilter(12))
 
-        binding.inPass.doOnTextChanged { text,_,_,_ ->
-            val len = text?.length ?: 0
-            // 校验密码是否为空
-            if (len == 0) {
-                binding.tlPass.error = getString(R.string.password_is_empty)
-            } else {
-                binding.tlPass.error = null
-            }
+        binding.inPass.doOnTextChanged { _,_,_,_ ->
+            // 修改
+            binding.tlPass.error = null
         }
 
         binding.inUser.setOnEditorActionListener { v, actionId, event ->
@@ -58,16 +55,21 @@ class LoginActivity : AppCompatActivity() {
 
         binding.inPass.setOnEditorActionListener { v, actionId, event ->
             if (actionId == EditorInfo.IME_ACTION_DONE) {
-                TODO("登录处理")
+                login()
+                true // 收起键盘
             } else {
                 false
             }
         }
 
         binding.btnLogin.setOnClickListener {
+            val passStr = binding.inPass.text.toString()
             if (isFastClick()) {
                 return@setOnClickListener
+            } else if (passStr.isEmpty()) {
+                binding.tlPass.error = getString(R.string.password_is_empty)
             }
+            login()
         }
 
         binding.btnRegister.setOnClickListener { view ->
@@ -88,6 +90,41 @@ class LoginActivity : AppCompatActivity() {
         return false
     }
 
+    private fun login() {
+        val username = binding.inUser.text.toString()
+        val password = binding.inPass.text.toString()
+        // 获取登录信息
+        val preferences = this.getSharedPreferences("teacher", MODE_PRIVATE)
+        val jsonString = preferences.getString("all_teachers","[]") ?: "[]"
+        val jsonArray = JSONArray(jsonString)
+
+        for (i in 0 until jsonArray.length()) {
+            val teacher = jsonArray.getJSONObject(i)
+            if (teacher.getString("username") == username && teacher.getString("password") == password) {
+                addLoginState(preferences,username)
+                // TODO 跳转到主页面
+                val intent = Intent(this, MainActivity::class.java)
+                startActivity(intent)
+                finish()
+            }
+        }
+
+        Toast.makeText(this,"账号或密码错误", Toast.LENGTH_SHORT).show()
+    }
+
+    /**
+     * 添加当前登录用户和登陆状态
+     */
+    fun addLoginState(preference: SharedPreferences,username: String) {
+        preference.edit {
+            putString("currentUser",username)
+            putBoolean("isLogin",true)
+        }
+    }
+
+    /**
+     * 切换语言
+     */
     private fun changeLanguage(language: String) {
         val locale = LocaleListCompat.forLanguageTags(language)
         AppCompatDelegate.setApplicationLocales(locale)

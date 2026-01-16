@@ -21,4 +21,7 @@
     <string name="gender_female">女</string>
     <string name="data_picker">请选择您的出生日期</string>
     <string name="login_back">返回登录</string>
+    <string name="nav_home" translatable="false">首页</string>
+    <string name="nav_notifications" translatable="false">通知</string>
+    <string name="nav_profile" translatable="false">我的</string>
 </resources>
