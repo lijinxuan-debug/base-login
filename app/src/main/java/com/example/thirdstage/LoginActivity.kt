@@ -24,6 +24,8 @@ class LoginActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        // 检验登陆状态
+        checkLogin()
         checkInputPassword()
     }
 
@@ -90,11 +92,31 @@ class LoginActivity : AppCompatActivity() {
         return false
     }
 
+    /**
+     * 校验登录状态
+     */
+    private fun checkLogin() {
+        // 获取登录信息
+        val preferences = this.getSharedPreferences("teacher", MODE_PRIVATE)
+
+        val intent = Intent(this, MainActivity::class.java)
+
+        // 判断登陆状态，如果存在则直接登陆跳转
+        if (preferences.getBoolean("isLogin",false)) {
+            startActivity(intent)
+            finish()
+        }
+    }
+
+    /**
+     * 登录方法
+     */
     private fun login() {
         val username = binding.inUser.text.toString()
         val password = binding.inPass.text.toString()
         // 获取登录信息
         val preferences = this.getSharedPreferences("teacher", MODE_PRIVATE)
+
         val jsonString = preferences.getString("all_teachers","[]") ?: "[]"
         val jsonArray = JSONArray(jsonString)
 
@@ -102,14 +124,18 @@ class LoginActivity : AppCompatActivity() {
             val teacher = jsonArray.getJSONObject(i)
             if (teacher.getString("username") == username && teacher.getString("password") == password) {
                 addLoginState(preferences,username)
-                // TODO 跳转到主页面
+                // 跳转到主页面
                 val intent = Intent(this, MainActivity::class.java)
                 startActivity(intent)
                 finish()
             }
         }
 
-        Toast.makeText(this,"账号或密码错误", Toast.LENGTH_SHORT).show()
+        if (preferences.getBoolean("isLogin",false)) {
+            Toast.makeText(this,"登陆成功", Toast.LENGTH_SHORT).show()
+        } else {
+            Toast.makeText(this,"账号或密码错误", Toast.LENGTH_SHORT).show()
+        }
     }
 
     /**

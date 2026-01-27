@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/liner_manager"
+        android:title="线性布局"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/grid_manager"
+        android:title="网格布局"
+        app:showAsAction="never" />
+</menu>

@@ -3,6 +3,7 @@
     <string name="login_welcome_title">您好！</string>
     <string name="login_welcome_subtitle">欢迎使用学生管理系统</string>
     <string name="username_placeholder">请输入您的账号</string>
+    <string name="student_placeholder">请输入创建的学生名称</string>
     <string name="password_placeholder">请输入您的密码</string>
     <string name="password2_placeholder">请再次输入密码</string>
     <string name="username_is_empty">账号不可为空</string>
@@ -10,6 +11,7 @@
     <string name="datepicker_is_empty">出生日期不可为空</string>
     <string name="login">登录</string>
     <string name="register">注册</string>
+    <string name="save">保存</string>
     <string name="hint">密码不得少于6位</string>
     <string name="hint_pass2">两次密码不一致</string>
     <string name="change">以下可以选择更改语言</string>
@@ -20,8 +22,16 @@
     <string name="gender_male">男</string>
     <string name="gender_female">女</string>
     <string name="data_picker">请选择您的出生日期</string>
+    <string name="load_bottom">已经到底啦~</string>
+    <string name="load_more">正在努力加载中...</string>
+    <string name="data_picker_student">请选择该学生的出生日期</string>
+    <string name="class_picker_student">请选择分配该学生的班级</string>
     <string name="login_back">返回登录</string>
+    <string name="student_id">学号: %1$s</string>
+    <string name="FloatingActionButton_description">添加</string>
+    <string name="main_back">返回主页</string>
     <string name="nav_home" translatable="false">首页</string>
     <string name="nav_notifications" translatable="false">通知</string>
     <string name="nav_profile" translatable="false">我的</string>
+    <string name="student_list">学生列表</string>
 </resources>

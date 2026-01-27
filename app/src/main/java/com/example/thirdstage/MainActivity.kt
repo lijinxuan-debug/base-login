@@ -9,7 +9,6 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
     private var currentFragment: Fragment? = null
-
     // 利用 lazy 懒加载 Fragment，只有第一次切换到它时才会实例化
     private val homeFragment by lazy { HomeFragment() }
     private val notificationFragment by lazy { NotificationFragment() }
@@ -23,6 +22,9 @@ class MainActivity : AppCompatActivity() {
         initNavigation()
     }
 
+    /**
+     * 导航栏
+     */
     private fun initNavigation() {
         binding.bottomNav.setOnItemSelectedListener { item ->
             when (item.itemId) {
