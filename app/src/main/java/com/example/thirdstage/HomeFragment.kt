@@ -3,6 +3,7 @@ package com.example.thirdstage
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
@@ -102,20 +103,17 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         binding.studentList.postDelayed({
             // 从当前列表的长度开始取，取 10 条
             val nextData = loadStudentsFromSP(studentList.size, 10)
+            val startPosition = studentList.size
 
             if (nextData.isEmpty()) {
                 adapter.hasMore = false
-                // 提示用户到底了（可选）
-                // Toast.makeText(requireContext(), "没有更多学生了", Toast.LENGTH_SHORT).show()
             } else {
-                val startPosition = studentList.size
                 studentList.addAll(nextData)
-
-                // 如果拿到的数据少于 10 条，说明下次肯定没了
-                if (nextData.size < 10) adapter.hasMore = false
-
-                adapter.notifyItemRangeInserted(startPosition, nextData.size)
+                if (nextData.size < 10) {
+                    adapter.hasMore = false
+                }
             }
+            adapter.notifyItemRangeInserted(startPosition, nextData.size)
 
             isLoading = false
         }, 1000)
