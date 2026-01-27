@@ -80,76 +80,52 @@
         app:layout_constraintStart_toEndOf="@id/sign_in"
         app:layout_constraintTop_toBottomOf="@id/username" />
 
-    <LinearLayout
-        android:id="@+id/about"
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btn_settings"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/infoCard"
-        android:layout_marginTop="30dp"
-        android:orientation="horizontal"
-        >
+        android:layout_height="72dp"
+        android:layout_marginHorizontal="20dp"
+        android:layout_marginTop="16dp"
+        android:paddingStart="16dp"
+        android:text="设置"
+        android:textColor="#333333"
+        android:textSize="18sp"
+        android:textAllCaps="false"
 
-        <ImageView
-            android:layout_width="0dp"
-            android:layout_height="50dp"
-            android:src="@drawable/budget"
-            android:layout_weight="0.15"
+        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+        app:backgroundTint="@color/white"
+        app:strokeColor="#DDDDDD"
+        app:strokeWidth="1dp"
+        app:cornerRadius="15dp"
 
-            />
+        app:icon="@drawable/ic_settings_custom"
+        app:iconTint="@null"
+        app:iconSize="32dp"
+        app:iconPadding="12dp"
+        app:iconGravity="start" android:gravity="start|center_vertical"
 
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="50dp"
-            android:layout_weight="0.70"
-            android:gravity="left|center"
-            android:text="预算中心"
-            android:textSize="19sp"
+        app:layout_constraintTop_toBottomOf="@+id/infoCard"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
 
-            />
-
-        <ImageView
-            android:layout_width="0dp"
-            android:layout_height="50dp"
-            android:layout_gravity="end"
-            android:src="@drawable/ahead"
-            android:layout_weight="0.15"
-            />
-
-    </LinearLayout>
-    <LinearLayout
-        android:id="@+id/credit"
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btn_logout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/about"
-        android:orientation="horizontal"
-        >
+        android:layout_height="60dp"
+        android:layout_marginHorizontal="20dp"
+        android:text="退出登录"
+        android:textColor="@android:color/white"
+        android:textSize="18sp"
+        android:textStyle="bold"
 
-        <ImageView
-            android:layout_width="0dp"
-            android:layout_height="50dp"
-            android:src="@drawable/budget"
-            android:layout_weight="0.15"
+        app:backgroundTint="#FF8299"
+        app:cornerRadius="30dp"
+        app:elevation="0dp"
+        app:rippleColor="#33FFFFFF"
+        android:textAllCaps="false"
+        android:layout_marginTop="15dp"
 
-            />
-
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="50dp"
-            android:layout_weight="0.70"
-            android:gravity="left|center"
-            android:text="预算中心"
-            android:textSize="19sp"
-
-            />
-
-        <ImageView
-            android:layout_width="0dp"
-            android:layout_height="50dp"
-            android:layout_gravity="end"
-            android:src="@drawable/ahead"
-            android:layout_weight="0.15"
-            />
-
-    </LinearLayout>
+        app:layout_constraintTop_toBottomOf="@+id/btn_settings"
+        />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

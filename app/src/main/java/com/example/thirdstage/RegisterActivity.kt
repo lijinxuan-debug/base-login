@@ -1,7 +1,9 @@
 package com.example.thirdstage
 
+import android.app.Activity
 import android.app.DatePickerDialog
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.text.InputFilter
 import android.widget.Toast
@@ -78,7 +80,19 @@ class RegisterActivity : AppCompatActivity() {
             val register = registerUser(this, user, pass1, pass2, binding.etDate.text.toString())
 
             if (register) {
-                // TODO 注册成功直接跳转到主页面
+                // 1. 弹出注册成功提示
+                Toast.makeText(this, "注册成功！", Toast.LENGTH_SHORT).show()
+
+                // 2. 构建跳转到首页的 Intent
+                val intent = Intent(this, MainActivity::class.java)
+
+                // 3. 【推荐】清空任务栈，确保首页是栈顶，防止回退到注册页
+                intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+
+                startActivity(intent)
+
+                // 4. 关闭当前的注册 Activity/Fragment 所在的 Activity
+                finish()
             }
         }
     }

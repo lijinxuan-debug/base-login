@@ -96,4 +96,13 @@ class StudentAdapter(private var studentList: List<Student>) : RecyclerView.Adap
         this.studentList = newList.toMutableList()
         diffResult.dispatchUpdatesTo(this)
     }
+
+    /**
+     * 获取当前位置的网格占据大小
+     */
+    fun getRecommendedSpanSize(position: Int, spanCount: Int): Int {
+        // 逻辑：如果是 Footer，占满全部 spanCount；否则只占 1 格
+        return if (getItemViewType(position) == TYPE_FOOTER) spanCount else 1
+    }
+
 }

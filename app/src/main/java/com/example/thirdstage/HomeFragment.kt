@@ -3,7 +3,6 @@ package com.example.thirdstage
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
@@ -59,7 +58,17 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
                 }
                 R.id.grid_manager -> {
                     adapter.isGrid = true
-                    binding.studentList.layoutManager = GridLayoutManager(requireContext(), 2)
+                    val spanCount = 2 // 定义列数
+                    val gridLayoutManager = GridLayoutManager(requireContext(), spanCount)
+
+                    // 使用你封装在 Adapter 里的逻辑
+                    gridLayoutManager.spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {
+                        override fun getSpanSize(position: Int): Int {
+                            return adapter.getRecommendedSpanSize(position, spanCount)
+                        }
+                    }
+
+                    binding.studentList.layoutManager = gridLayoutManager
                     adapter.notifyDataSetChanged()
                     true
                 }
@@ -125,6 +134,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
     private fun refreshLocalData() {
         binding.swipeRefreshLayout.postDelayed({
             val newData = loadStudentsFromSP(0,10)
+            // 这里调用DiffUtil其实没有意义，展示
             adapter.updateData(newData) // 这里内部调用 DiffUtil
 
             binding.swipeRefreshLayout.isRefreshing = false
